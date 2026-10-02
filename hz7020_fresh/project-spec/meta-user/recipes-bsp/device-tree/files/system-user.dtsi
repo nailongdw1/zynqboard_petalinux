@@ -1,137 +1,156 @@
 /include/ "system-conf.dtsi"
-
 / {
 #include <dt-bindings/gpio/gpio.h>
 #include <dt-bindings/input/linux-event-codes.h>
 fclk-enable = <0x1>;
-    model = "HZHY Zynq Development Board";
-    compatible = "xlnx,zynq-zc702", "xlnx,zynq-7000";
-
-    /* 调试用可保留；正式发布建议删掉 bootargs，让 PetaLinux 自动生成 */
-    chosen {
-        bootargs = "earlycon=cdns,mmio,0xe0000000,115200 console=ttyPS0,115200 clk_ignore_unused initcall_debug loglevel=8 ignore_loglevel root=/dev/mmcblk0p2 rw rootwait cma=64M";
-        stdout-path = "serial0:115200n8";
-    };
-
-    leds {
-        compatible = "gpio-leds";
-        gpio-led1 { label = "led1"; gpios = <&gpio0 54 GPIO_ACTIVE_HIGH>; default-state = "on"; };
-        gpio-led2 { label = "led2"; gpios = <&gpio0 0  GPIO_ACTIVE_HIGH>; linux,default-trigger = "heartbeat"; };
-        gpio-led5 { label = "ps_led0"; gpios = <&gpio0 7 GPIO_ACTIVE_HIGH>; default-state = "on"; };
-        gpio-led6 { label = "ps_led1"; gpios = <&gpio0 8 GPIO_ACTIVE_HIGH>; linux,default-trigger = "timer"; };
-    };
-
-    /* 只走 libgpiod 就把 compatible 去掉，避免内核找不存在的驱动 */
-    beep {
-        /* compatible = "gpio-beeper"; */
-        gpios = <&gpio0 58 GPIO_ACTIVE_HIGH>;
-    };
-
-    keys {
-        compatible = "gpio-keys";
-        autorepeat;
-        gpio-key1 {
-            label = "pl_key0";
-            gpios = <&gpio0 55 GPIO_ACTIVE_LOW>;
-            linux,code = <KEY_LEFT>;
-            gpio-key,wakeup;
-        };
-        gpio-key2 {
-            label = "pl_key1";
-            gpios = <&gpio0 56 GPIO_ACTIVE_LOW>;
-            linux,code = <KEY_RIGHT>;
-            gpio-key,wakeup;
-        };
-        touch-key {
-            label = "touch_key";
-            gpios = <&gpio0 57 GPIO_ACTIVE_HIGH>;
-            linux,code = <KEY_ENTER>;
-            gpio-key,wakeup;
-        };
-    };
-
-    /* 程控放大器：只声明语义，不绑驱动；应用用 libgpiod 操作 11/12/13 */
-    pga_ctrl: pga_ctrl {
-        /* compatible = "gpio-pga"; */
-        pga-gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>,
-                    <&gpio0 12 GPIO_ACTIVE_HIGH>,
-                    <&gpio0 11 GPIO_ACTIVE_HIGH>;
-        status = "okay";
-    };
-
-    usb_phy0: phy0@e0002000 {
-        compatible = "ulpi-phy";
-        #phy-cells = <0>;
-        reg = <0xe0002000 0x1000>;
-        view-port = <0x0170>;
-        drv-vbus;
-    };
+model = "HZHY Zynq Development Board";
+compatible = "xlnx,zynq-zc702", "xlnx,zynq-7000";
+/* 调试用可保留；正式发布建议删掉 bootargs，让 PetaLinux 自动生成 */
+chosen {
+bootargs = "earlycon=cdns,mmio,0xe0000000,115200 console=ttyPS0,115200 clk_ignore_unused initcall_debug loglevel=8 ignore_loglevel root=/dev/mmcblk0p2 rw rootwait cma=64M";
+stdout-path = "serial0:115200n8";
+};
+leds {
+compatible = "gpio-leds";
+gpio-led1 { label = "led1"; gpios = <&gpio0 54 GPIO_ACTIVE_HIGH>; default-state = "on"; };
+gpio-led2 { label = "led2"; gpios = <&gpio0 0  GPIO_ACTIVE_HIGH>; linux,default-trigger = "heartbeat"; };
+gpio-led5 { label = "ps_led0"; gpios = <&gpio0 7 GPIO_ACTIVE_HIGH>; default-state = "on"; };
+gpio-led6 { label = "ps_led1"; gpios = <&gpio0 8 GPIO_ACTIVE_HIGH>; linux,default-trigger = "timer"; };
+};
+/* 只走 libgpiod 就把 compatible 去掉，避免内核找不存在的驱动 */
+beep {
+/* compatible = "gpio-beeper"; */
+gpios = <&gpio0 58 GPIO_ACTIVE_HIGH>;
+};
+keys {
+compatible = "gpio-keys";
+autorepeat;
+gpio-key1 {
+label = "pl_key0";
+gpios = <&gpio0 55 GPIO_ACTIVE_LOW>;
+linux,code = <KEY_LEFT>;
+gpio-key,wakeup;
+};
+gpio-key2 {
+label = "pl_key1";
+gpios = <&gpio0 56 GPIO_ACTIVE_LOW>;
+linux,code = <KEY_RIGHT>;
+gpio-key,wakeup;
+};
+touch-key {
+label = "touch_key";
+gpios = <&gpio0 57 GPIO_ACTIVE_HIGH>;
+linux,code = <KEY_ENTER>;
+gpio-key,wakeup;
+};
+};
+/* 程控放大器：只声明语义，不绑驱动；应用用 libgpiod 操作 11/12/13 */
+pga_ctrl: pga_ctrl {
+/* compatible = "gpio-pga"; */
+pga-gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>,
+<&gpio0 12 GPIO_ACTIVE_HIGH>,
+<&gpio0 11 GPIO_ACTIVE_HIGH>;
+status = "okay";
+};
+usb_phy0: phy0@e0002000 {
+compatible = "ulpi-phy";
+#phy-cells = <0>;
+reg = <0xe0002000 0x1000>;
+view-port = <0x0170>;
+drv-vbus;
+};
 };
 
 &uart0 {
-    u-boot,dm-pre-reloc;
-    status = "okay";
+u-boot,dm-pre-reloc;
+status = "okay";
 };
 
 &uart1 {
-    status = "okay";
+status = "okay";
 };
 
 &sdhci0 {
-    u-boot,dm-pre-reloc;
-    status = "okay";
+u-boot,dm-pre-reloc;
+status = "okay";
 };
 
 &usb0 {
-    dr_mode = "otg";
-    usb-phy = <&usb_phy0>;
+dr_mode = "otg";
+usb-phy = <&usb_phy0>;
 };
 
 &qspi {
-    u-boot,dm-pre-reloc;
-    flash@0 {
-        compatible = "w25q256", "jedec,spi-nor";
-        reg = <0x0>;
-        spi-max-frequency = <50000000>;
-        #address-cells = <1>;
-        #size-cells = <1>;
-        partition@0x000000 { label = "boot";     reg = <0x000000 0x500000>; };
-        partition@0x500000 { label = "bootenv";  reg = <0x500000 0x020000>; };
-        partition@0x520000 { label = "image.ub"; reg = <0x520000 0xA00000>; };
-        partition@0xF20000 { label = "boot.scr"; reg = <0xF20000 0x020000>; };
-    };
+u-boot,dm-pre-reloc;
+flash@0 {
+compatible = "w25q256", "jedec,spi-nor";
+reg = <0x0>;
+spi-max-frequency = <50000000>;
+#address-cells = <1>;
+#size-cells = <1>;
+partition@0x000000 { label = "boot";     reg = <0x000000 0x500000>; };
+partition@0x500000 { label = "bootenv";  reg = <0x500000 0x020000>; };
+partition@0x520000 { label = "image.ub"; reg = <0x520000 0xA00000>; };
+partition@0xF20000 { label = "boot.scr"; reg = <0xF20000 0x020000>; };
+};
 };
 
 &gem0 {
-    local-mac-address = [00 0a 35 00 8b 87];
-    phy-handle = <&ethernet_phy>;
-    ethernet_phy: ethernet-phy@7 {
-        reg = <0x7>;
-        device_type = "ethernet-phy";
-    };
+local-mac-address = [00 0a 35 00 8b 87];
+phy-handle = <&ethernet_phy>;
+ethernet_phy: ethernet-phy@7 {
+reg = <0x7>;
+device_type = "ethernet-phy";
+};
 };
 
 &watchdog0 {
-    status = "okay";
-    reset-on-timeout;
+status = "okay";
+reset-on-timeout;
 };
 
 &axi_dma_0 {
-    compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
-    reg = <0x40400000 0x10000>;
-    #dma-cells = <1>;
-    interrupt-parent = <&intc>;
-    interrupts = <0 29 4>;
-    xlnx,addrwidth = <0x20>;
-    clock-names = "s_axi_lite_aclk", "m_axi_s2mm_aclk";
-    clocks = <&clkc 16>, <&clkc 16>;
-    status = "okay";
-
-    dma-channel@40400030 {
-        compatible = "xlnx,axi-dma-s2mm-channel";
-        dma-channels = <1>;
-        interrupts = <0 29 4>;
-        xlnx,datawidth = <0x40>;
-        xlnx,device-id = <0>;
-    };
+compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
+reg = <0x40400000 0x10000>;
+#dma-cells = <1>;
+interrupt-parent = <&intc>;
+/* IRQ_F2P[0] -> GIC 61（DT 编码 29） */
+interrupts = <0 29 4>;
+xlnx,addrwidth = <0x20>;
+clock-names = "s_axi_lite_aclk", "m_axi_s2mm_aclk";
+clocks = <&clkc 16>, <&clkc 16>;
+status = "okay";
+dma-channel@40400030 {
+compatible = "xlnx,axi-dma-s2mm-channel";
+dma-channels = <1>;
+interrupts = <0 29 4>;
+xlnx,datawidth = <0x40>;
+xlnx,device-id = <0>;
 };
+};
+
+/*
+ * FIFO -> DDS s_axis_config 下发配置链路：
+ * PS -> M_AXI_GP1 -> AXI Interconnect -> axi_fifo_mm_s_0(S_AXI) -> TXD -> DDS s_axis_config
+ * DDS 相位 -> Slice(高8位) -> Distributed Memory ROM -> 外部 DA
+ * 后级 DDS/Slice/ROM/DA 为纯 PL 数据通路，不在设备树描述。
+ */
+&axi_fifo_mm_s_0 {
+    compatible = "xlnx,axi-fifo-mm-s-4.2";   /* 你的IP版本是4.2 */
+    reg = <0x43c00000 0x10000>;
+    interrupt-parent = <&intc>;
+    interrupts = <0 30 4>;                   /* 确认硬件中断接在 F2P[1] */
+    interrupt-names = "interrupt";
+
+    xlnx,use-tx-data = <1>;
+    xlnx,use-rx-data = <0>;
+    xlnx,use-tx-ctrl = <0>;
+    xlnx,axi-str-txd-tdata-width = <32>;   /* 硬件已改为32位 */
+    xlnx,tx-fifo-depth = <512>;
+    xlnx,use-tx-cut-through = <0>;          /* 对应硬件未勾选 Cut Through */
+
+    status = "okay";
+};
+// &axi_vdma_0 {
+//     status = "disabled";
+// };
