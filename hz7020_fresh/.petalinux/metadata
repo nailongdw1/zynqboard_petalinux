@@ -1,6 +1,6 @@
 PETALINUX_VER=2020.2
 VALIDATE_HW_CHKSUM=1
-HARDWARE_PATH=/home/nailong/petalinux/projects/xsa_new/design_1_wrapper.xsa
-HARDWARE_CHECKSUM=427d703fb05ebf55f239066a44788344
+HARDWARE_PATH=/home/nailong/petalinux/projects/xsa_new/system_wrapper.xsa
+HARDWARE_CHECKSUM=85e4e2b3d1da3cef19933d695fff90a2
 YOCTO_SDK=5ff8fc5f85d1566b314bb73eaa378212
 RFSCONFIG_CHKSUM=7fb2a289957dc67ab720c7cb67e09ee0
