@@ -15,7 +15,7 @@ CONFIG_system-zynq=y
 #
 # sudo 
 #
-# CONFIG_sudo is not set
+CONFIG_sudo=y
 # CONFIG_sudo-dbg is not set
 # CONFIG_sudo-dev is not set
 
@@ -3955,7 +3955,7 @@ CONFIG_bridge-utils=y
 #
 # packagegroup-petalinux-qt 
 #
-# CONFIG_packagegroup-petalinux-qt is not set
+CONFIG_packagegroup-petalinux-qt=y
 # CONFIG_packagegroup-petalinux-qt-dbg is not set
 # CONFIG_packagegroup-petalinux-qt-dev is not set
 # CONFIG_imageclass-populate-sdk-qt5 is not set
@@ -4017,7 +4017,7 @@ CONFIG_imagefeature-ssh-server-dropbear=y
 CONFIG_imagefeature-hwcodecs=y
 # CONFIG_imagefeature-package-management is not set
 CONFIG_imagefeature-debug-tweaks=y
-# CONFIG_auto-login is not set
+CONFIG_auto-login=y
 
 #
 # apps 

@@ -388,11 +388,11 @@ unsigned long ps7_clock_init_data_3_0[] = {
     // .. .. DIVISOR0 = 0x25
     // .. .. ==> 0XF80001A0[13:8] = 0x00000025U
     // .. ..     ==> MASK : 0x00003F00U    VAL : 0x00002500U
-    // .. .. DIVISOR1 = 0x3
-    // .. .. ==> 0XF80001A0[25:20] = 0x00000003U
-    // .. ..     ==> MASK : 0x03F00000U    VAL : 0x00300000U
+    // .. .. DIVISOR1 = 0x24
+    // .. .. ==> 0XF80001A0[25:20] = 0x00000024U
+    // .. ..     ==> MASK : 0x03F00000U    VAL : 0x02400000U
     // .. .. 
-    EMIT_MASKWRITE(0XF80001A0, 0x03F03F30U ,0x00302520U),
+    EMIT_MASKWRITE(0XF80001A0, 0x03F03F30U ,0x02402520U),
     // .. .. CLK_621_TRUE = 0x1
     // .. .. ==> 0XF80001C4[0:0] = 0x00000001U
     // .. ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
@@ -4355,11 +4355,11 @@ unsigned long ps7_clock_init_data_2_0[] = {
     // .. .. DIVISOR0 = 0x25
     // .. .. ==> 0XF80001A0[13:8] = 0x00000025U
     // .. ..     ==> MASK : 0x00003F00U    VAL : 0x00002500U
-    // .. .. DIVISOR1 = 0x3
-    // .. .. ==> 0XF80001A0[25:20] = 0x00000003U
-    // .. ..     ==> MASK : 0x03F00000U    VAL : 0x00300000U
+    // .. .. DIVISOR1 = 0x24
+    // .. .. ==> 0XF80001A0[25:20] = 0x00000024U
+    // .. ..     ==> MASK : 0x03F00000U    VAL : 0x02400000U
     // .. .. 
-    EMIT_MASKWRITE(0XF80001A0, 0x03F03F30U ,0x00302520U),
+    EMIT_MASKWRITE(0XF80001A0, 0x03F03F30U ,0x02402520U),
     // .. .. CLK_621_TRUE = 0x1
     // .. .. ==> 0XF80001C4[0:0] = 0x00000001U
     // .. ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
@@ -8475,11 +8475,11 @@ unsigned long ps7_clock_init_data_1_0[] = {
     // .. .. DIVISOR0 = 0x25
     // .. .. ==> 0XF80001A0[13:8] = 0x00000025U
     // .. ..     ==> MASK : 0x00003F00U    VAL : 0x00002500U
-    // .. .. DIVISOR1 = 0x3
-    // .. .. ==> 0XF80001A0[25:20] = 0x00000003U
-    // .. ..     ==> MASK : 0x03F00000U    VAL : 0x00300000U
+    // .. .. DIVISOR1 = 0x24
+    // .. .. ==> 0XF80001A0[25:20] = 0x00000024U
+    // .. ..     ==> MASK : 0x03F00000U    VAL : 0x02400000U
     // .. .. 
-    EMIT_MASKWRITE(0XF80001A0, 0x03F03F30U ,0x00302520U),
+    EMIT_MASKWRITE(0XF80001A0, 0x03F03F30U ,0x02402520U),
     // .. .. CLK_621_TRUE = 0x1
     // .. .. ==> 0XF80001C4[0:0] = 0x00000001U
     // .. ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
