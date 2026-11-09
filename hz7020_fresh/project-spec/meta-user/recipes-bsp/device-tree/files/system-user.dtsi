@@ -41,7 +41,7 @@ reserved-memory {
 #endif
 	leds: leds {
 		compatible = "gpio-leds";
-		status = "disable";
+		status = "disabled";
 #ifndef CONFIG_VERSION_WDG
 		gpio-led1 {
 			label = "led1";

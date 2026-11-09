@@ -1,12 +1,77 @@
+# ==============================================================
+# PetaLinux 2020.2 / HZ7020 工程 .gitignore
+# 注意：git 仓库根在上一级 projects/，本文件规则相对本工程目录生效
+# ==============================================================
+
+# ---- 构建产物：均可由 petalinux-build / petalinux-package 重建 ----
+/build/
+/images/
+/pre-built/
+/components/plnx_workspace/
+/components/yocto/
+/.Xil/
+
+# ---- PetaLinux 内部状态 ----
+/.petalinux/*
+!/.petalinux/metadata
+
+# ---- 配置备份 / 编辑器残留 ----
 */*/config.old
 */*/rootfs_config.old
-build/
-images/linux/
-pre-built/linux/
-.petalinux/*
-!.petalinux/metadata
+*.orig
+*.rej
+*~
+*.swp
+
+# ---- 编译产物、日志、镜像 ----
 *.o
+*.ko
+*.mod
+*.mod.c
+*.pyc
+__pycache__/
+*.cmd
+.*.cmd
 *.jou
 *.log
-/components/plnx_workspace
-/components/yocto
+*.str
+*.dtb
+*.dtbo
+zImage
+uImage
+image.ub
+BOOT.BIN
+rootfs.cpio
+rootfs.cpio.gz
+rootfs.cpio.gz.u-boot
+rootfs.tar.gz
+rootfs.jffs2
+
+# ---- 外部内核源码树（厂商修改版 linux-xlnx 5.4）----
+# 整棵树数万文件 / 近 1GB，且 PetaLinux 会往里写 .kernel-meta、
+# oe-logs、oe-workdir、.metadir、.scmversion 等构建产物。
+# 默认整树不入库；板厂 LCD 改动请导出到 patches/ 目录提交。
+# 若确实要连内核源码一起入库：注释掉下一行，并启用后面那组规则。
+/components/ext_sources/
+#
+# /components/ext_sources/*/.kernel-meta/
+# /components/ext_sources/*/.metadir
+# /components/ext_sources/*/.scmversion
+# /components/ext_sources/*/oe-logs/
+# /components/ext_sources/*/oe-workdir/
+# /components/ext_sources/*/image.ub
+# /components/ext_sources/*/*.its
+# /components/ext_sources/*/.config
+# /components/ext_sources/*/include/config/
+# /components/ext_sources/*/include/generated/
+# /components/ext_sources/*/arch/*/include/generated/
+
+# ---- 必须入库（提交前用 git status 核对）----
+#   config.project
+#   project-spec/configs/config , rootfs_config
+#   project-spec/meta-user/recipes-bsp/device-tree/files/system-user.dtsi
+#   project-spec/meta-user/recipes-kernel/linux/     (.bbappend / bsp.cfg)
+#   project-spec/meta-user/recipes-bsp/u-boot/      (boot.cmd.default / platform-top.h)
+#   project-spec/meta-user/conf/petalinuxbsp.conf
+#   patches/                                       (板厂内核改动)
+#   .xsa / .hdf 硬件描述文件（建议单独放 hardware/ 或另一仓库）
