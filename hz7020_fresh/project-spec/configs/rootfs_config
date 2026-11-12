@@ -3958,12 +3958,12 @@ CONFIG_bridge-utils=y
 CONFIG_packagegroup-petalinux-qt=y
 # CONFIG_packagegroup-petalinux-qt-dbg is not set
 # CONFIG_packagegroup-petalinux-qt-dev is not set
-# CONFIG_imageclass-populate-sdk-qt5 is not set
+CONFIG_imageclass-populate-sdk-qt5=y
 
 #
 # packagegroup-petalinux-qt-extended 
 #
-# CONFIG_packagegroup-petalinux-qt-extended is not set
+CONFIG_packagegroup-petalinux-qt-extended=y
 # CONFIG_packagegroup-petalinux-qt-extended-dbg is not set
 # CONFIG_packagegroup-petalinux-qt-extended-dev is not set
 
@@ -3998,7 +3998,7 @@ CONFIG_packagegroup-petalinux-qt=y
 #
 # packagegroup-petalinux-x11 
 #
-# CONFIG_packagegroup-petalinux-x11 is not set
+CONFIG_packagegroup-petalinux-x11=y
 # CONFIG_packagegroup-petalinux-x11-dbg is not set
 # CONFIG_packagegroup-petalinux-x11-dev is not set
 

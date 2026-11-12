@@ -41,7 +41,7 @@ reserved-memory {
 #endif
 	leds: leds {
 		compatible = "gpio-leds";
-		status = "disabled";
+		status = "okay";
 #ifndef CONFIG_VERSION_WDG
 		gpio-led1 {
 			label = "led1";
@@ -76,6 +76,7 @@ reserved-memory {
 			default-state = "on";
 		};
 		beep {
+			label = "beep";
 			gpios = <&gpio0 58 GPIO_ACTIVE_HIGH>;
 		};
 	};
